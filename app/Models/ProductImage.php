@@ -16,14 +16,14 @@ class ProductImage extends Model
     ];
 
     protected $hidden = [
-        'product_id'
+        'product_id',
+        'id'
     ];
 
     protected static function boot()
     {
         parent::boot();
         static::creating(function($productImage) {
-            $productImage->image = '/storage/images/product/image-'.rand().$productImage->id.time();
             $productImage->slug = 'product-image-'.rand().$productImage->id.time();
         });
     }

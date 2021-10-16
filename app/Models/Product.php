@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -19,13 +18,15 @@ class Product extends Model
         'shipping_fee',
         'discount',
         'slug',
+        'status',
         'refund',
         'warranty'
     ];
     
     protected $attributes = [
         'refund' => 3,
-        'warranty' => false
+        'warranty' => false,
+        'status' => 'active'
     ];
 
     protected static function boot()

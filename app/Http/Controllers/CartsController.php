@@ -16,7 +16,7 @@ class CartsController extends Controller
             $cart = Cart::create($request->all());
             return response()->json(['cart' => $cart]);
         }else {
-            return response()->json(['message' => 'Product already in Cart']);
+            return response()->json(['message' => 'Product already in Cart'], 400);
         }
     }
 

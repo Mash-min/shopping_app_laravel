@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\AddProductRequest;
 use App\Models\Product;
 
 class ProductsController extends Controller
 {
   
-    public function create(Request $request)
+    public function create(AddProductRequest $request)
     {
         $product = Product::create($request->all());
         return response()->json(['product' => $product]);
@@ -21,9 +22,9 @@ class ProductsController extends Controller
         return response()->json(['product' => $product]);
     }
 
-    public function delete($id)
+    public function delete($slug)
     {
-        Product::find($id)->delete();
+        Product::where(['slug' => $slug])->first()->delete();
         return response()->json(['message' => 'Product Deleted']);
     }
 
@@ -33,9 +34,9 @@ class ProductsController extends Controller
         return response()->json(['product' => $product]);
     }
 
-    public function products()
+    public function products($paginate)
     {
-        $products = Product::orderBy('created_at', 'ASC')->with('images')->with('tags')->paginate(8);
+        $products = Product::orderBy('created_at', 'ASC')->with('images')->with('tags')->paginate($paginate);
         return response()->json(['products' => $products]);
     }
 
