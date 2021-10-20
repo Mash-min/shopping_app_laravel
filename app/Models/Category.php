@@ -15,14 +15,14 @@ class Category extends Model
     ];
 
     protected $hidden = [
-        'id'
+        // 'id'
     ];
 
     protected static function boot() 
     {
         parent::boot();
         static::creating(function($category) {
-            $category->slug = 'cartegory-'.rand().$category->id.time();
+            $category->slug = 'category-'.rand().$category->id.time();
         });
     }
 

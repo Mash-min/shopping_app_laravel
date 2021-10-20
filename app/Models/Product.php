@@ -51,4 +51,9 @@ class Product extends Model
         return $this->hasMany(ProductTag::class, 'product_id');
     }
 
+    public function categories()
+    {
+        return $this->hasMany(ProductCategory::class, 'product_id');
+    }
+
 }

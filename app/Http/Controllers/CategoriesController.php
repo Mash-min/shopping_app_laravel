@@ -25,9 +25,9 @@ class CategoriesController extends Controller
         return response()->json(['category' => $category]);
     }
     
-    public function categories()
+    public function categories($paginate)
     {
-        $categories = Category::orderBy('created_at', 'ASC')->paginate(8);
+        $categories = Category::orderBy('created_at', 'ASC')->paginate($paginate);
         return response()->json(['categories' => $categories]);
     }
 }

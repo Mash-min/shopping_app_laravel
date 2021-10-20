@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProductTag;
-use App\Models\Product;
 
 class ProductTagsController extends Controller
 {

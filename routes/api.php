@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ProductCategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductImagesController;
 use App\Http\Controllers\ProductTagsController;
@@ -19,10 +20,12 @@ Route::group(['prefix' => 'users'], function() {
 // =============== Products ================
 Route::group(['prefix' => 'products'] , function() {
     Route::post('/',        [ProductsController::class, 'create']);
-    Route::put('/{id}',     [ProductsController::class, 'update']);
+    Route::put('/{slug}',     [ProductsController::class, 'update']);
     Route::delete('/{slug}',  [ProductsController::class, 'delete']);
     Route::get('/{slug}',     [ProductsController::class, 'find']);
-    Route::get('/paginate/{paginate}',         [ProductsController::class, 'products']);
+    Route::get('/paginate/{paginate}/status={status}',         [ProductsController::class, 'products']);
+    Route::put('/archive/{id}', [ProductsController::class, 'archiveProduct']);
+    Route::put('/restore/{id}', [ProductsController::class, 'restoreProduct']);
 });
 // =============== Product Images ================
 Route::group(['prefix' => 'product-images'], function() {
@@ -45,8 +48,12 @@ Route::group(['prefix' => 'carts'], function() {
 });
 
 Route::group(['prefix' => 'categories'], function() {
-    Route::get('/', [CategoriesController::class, 'categories']);
+    Route::get('/paginate={paginate}', [CategoriesController::class, 'categories']);
     Route::post('/', [CategoriesController::class, 'create']);
     Route::delete('/{slug}', [CategoriesController::class, 'delete']);
     Route::put('/{slug}', [CategoriesController::class, 'update']);
+});
+
+Route::group(['prefix' => 'product-categories'], function() {
+    Route::post('/', [ProductCategoriesController::class, 'create']);
 });

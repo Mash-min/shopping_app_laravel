@@ -12,6 +12,7 @@ class ProductImagesController extends Controller
     
     public function create(Request $request)
     {
+        $product = Product::findOrFail($request->product_id);
         foreach($request->image as $image) {
             // ============= NAMING THE IMAGE =================
             $imageName = 'product-image-'.rand().$request->product_id.time().'.png';
@@ -20,7 +21,7 @@ class ProductImagesController extends Controller
                 'image' => $imageName
             ]);
             // ============= SAVES THE IMAGE TO STORAGE =================
-            $image->storeAs('/public/images/products/', $imageName);
+            $image->storeAs('/public/images/products/'.$product->slug, $imageName);
         }
         return response()->json(['message' => 'Updload Success']);
     }
